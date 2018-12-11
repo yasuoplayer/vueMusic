@@ -30,8 +30,6 @@
 </template>
 
 <script>
-    import vue from  'vue';
-    import  vueresource from 'vue-resource';
     import BScroll from 'better-scroll'
     export default {
         data:function () {

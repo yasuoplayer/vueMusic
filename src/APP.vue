@@ -7,7 +7,6 @@
         <Tab></Tab>
         <router-view></router-view>
         <maudio v-if="isplay"></maudio>
-
     </div>
 </template>
 

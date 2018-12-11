@@ -9,15 +9,15 @@
                     <p class="songname">{{currentsong.songname}}</p>
                     <p>{{currentsong.singer}}</p>
                 </div>
-                <div class="img" @touchstart="ts1" @touchmove="tm1" @touchend="te1">
-                    <div class="ulbox">
+                <div class="img" @touchstart="ts1" @touchmove="tm1" @touchend="te1"  >
+                    <div class="ulbox" >
                         <ul :class="islrc?'lrc':''">
                             <li>
                                 <img :src="currentimg" :class="isplay?'play':'paused'"/>
                             </li>
                             <li>
-                            <div class="scroll" ref="scroll">
-                            <ul  v-if="lyric&&lyric.lines">
+                            <div class="scroll" ref="scroll" v-if="lyric&&lyric.lines">
+                            <ul  >
                             <li v-for="(item,index) in lyric.lines" ref="lines" :class="currentline==index?'lineactive':''" v-html="item.txt"></li>
                             </ul>
                             </div>
@@ -115,14 +115,14 @@
             }
         },
         watch:{
-            gsong:function(n)
-            {
-              this.songs = n;
-              this.index = 0;
-              this.currentsong = n[0];
-              this.$store.commit('setcurrentindex',0)
-              this.$store.commit('setcurrentsong',n[0])
-            },
+            // gsong:function(n)
+            // {
+            //   this.songs = n;
+            //   this.index = 0;
+            //   this.currentsong = n[0];
+            //   this.$store.commit('setcurrentindex',0)
+            //   this.$store.commit('setcurrentsong',n[0])
+            // },
             getindex:function(n)
             {
               this.index = n;
@@ -133,8 +133,15 @@
             },
             isbig:function(n)
             {
-                this.lyricstr =this.lyricstr;
                 this.$store.commit('setisbig',n)
+                if(n)
+                {
+                    this.$nextTick(()=>{
+                        this.scroll = new BScroll(this.$refs.scroll,{
+                        })
+                    })
+                }
+
             },
             lyricstr:function(n)
             {
@@ -144,15 +151,6 @@
                         this.lyric.stop();
                     }
                     this.lyric = new lyric(n, this.handler);
-                    if(this.isbig==true)
-                    {
-
-
-                    this.$nextTick(()=>{
-                        this.scroll = new BScroll(this.$refs.scroll,{
-                        })
-                    })
-                    }
             },
             currenttime:function(n)
             {
@@ -175,7 +173,7 @@
             {
                 this.backgroundImage = `background-image:url('https://y.gtimg.cn/music/photo_new/T002R300x300M000${n.albummid}.jpg?max_age=2592000')`;
                 this.currentimg = `https://y.gtimg.cn/music/photo_new/T002R300x300M000${n.albummid}.jpg?max_age=2592000`;
-                this.currenturl = `http://dl.stream.qqmusic.qq.com/C400${n.songmid}.m4a?guid=7498084000&vkey=AA77A177B35CCEE5F2F3B35D98370452E05C6210F08DD0695DA6BB1804C1681156A0274EE7C2B28E95B4FB388A92AED2C999FC2054088F88&uin=0&fromtag=38`;
+                this.currenturl = `http://dl.stream.qqmusic.qq.com/C400${n.songmid}.m4a?guid=7498084000&vkey=8881E4F85A89E046E3CB04180A84C22C676CEEE7B2C508331F6A820940017A2DF925936C23585F6BFBF7228D1681718453735CCD499FE497&uin=0&fromtag=38`;
                 this.initmusic();
                 this.lyricstr = '';
                 this.getlrc();
@@ -197,7 +195,7 @@
                 }
                 this.$refs.audio.pause();
                 this.lyric.stop();
-            }
+            },
         },
         created:function () {
             this.isbig = this.$store.state.isbig;
@@ -312,6 +310,8 @@
             },
             tm1:function(e)
             {
+                e.stopPropagation()
+                e.cancelBubble=true
                 this.toucheX1.x2 = e.touches[0].clientX;
             },
             te1:function()
@@ -465,7 +465,6 @@
             prev:function () {
                 this.index = --this.index<0?this.songs.length-1:this.index;
                 this.getcurrentsong();
-                console.log('prev')
             },
             next:function () {
                 this.index = ++this.index>this.songs.length-1?0:this.index;
@@ -494,7 +493,6 @@
 </script>
 
 <style scoped>
-
     .detail-enter,.detail-leave-to
     {
         opacity: 0;
