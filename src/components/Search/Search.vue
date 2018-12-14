@@ -84,7 +84,7 @@
                 this.search(key)
             },
           gethotkey:function () {
-              this.$http.get('http://172.17.3.19:8888/api/getkey')
+              this.$http.get('http://localhost:8888/api/getkey')
                   .then((res)=>{
                       this.spkey = res.body.data.special_key;
                       this.spurl = res.body.data.special_url;
@@ -97,7 +97,7 @@
                     this.songlist=[];
                     return
                 }
-                this.$http.get(`http://172.17.3.19:8888/api/search?key=${key}`)
+                this.$http.get(`http://localhost:8888/api/search?key=${key}`)
                     .then((res)=>{
                         this.clear(res.body.data.song.list)
                     })

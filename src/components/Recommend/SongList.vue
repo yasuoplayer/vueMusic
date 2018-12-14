@@ -24,7 +24,7 @@
             }
         },
         created:function () {
-            this.$http.get('http://172.17.3.19:8888/api/songlist').then((res)=>{
+            this.$http.get('http://localhost:8888/api/songlist').then((res)=>{
                 this.list = res.body.data.list
             })
         }

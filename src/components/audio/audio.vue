@@ -173,7 +173,7 @@
             {
                 this.backgroundImage = `background-image:url('https://y.gtimg.cn/music/photo_new/T002R300x300M000${n.albummid}.jpg?max_age=2592000')`;
                 this.currentimg = `https://y.gtimg.cn/music/photo_new/T002R300x300M000${n.albummid}.jpg?max_age=2592000`;
-                this.currenturl = `http://dl.stream.qqmusic.qq.com/C400${n.songmid}.m4a?guid=7498084000&vkey=8881E4F85A89E046E3CB04180A84C22C676CEEE7B2C508331F6A820940017A2DF925936C23585F6BFBF7228D1681718453735CCD499FE497&uin=0&fromtag=38`;
+                this.currenturl = `http://dl.stream.qqmusic.qq.com/C400${n.songmid}.m4a?guid=1746508898&vkey=9A132ABF712E9F77F817C22FE0C37245E3E08B0C45CF290E431D17F6DF7A1D9A17AE2784B7EB11728C025BB2B393192DD2B53A2DDE6D6677&uin=0&fromtag=38`;
                 this.initmusic();
                 this.lyricstr = '';
                 this.getlrc();
@@ -531,7 +531,7 @@
     #small{
         height: 70px;
         left: 0;
-        top:693px ;
+        bottom:0 !important;
     }
 
     .small
@@ -605,7 +605,7 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
-        top: 0;
+		top:0;
         left: 0;
         z-index: 999;
     }
